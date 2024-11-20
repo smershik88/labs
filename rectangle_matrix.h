@@ -87,6 +87,28 @@ std::optional<Matrix_t<T>> subRectangleMatrix(const Matrix_t<T> &lhs,
 }
 
 template <typename T>
+std::optional<Matrix_t<T>> mulRectangleMatrix(const Matrix_t<T> &lhs,
+                                              const Matrix_t<T> &rhs) {
+    if (lhs[0].size() != rhs.size()) {
+        return std::nullopt;
+    }
+    const std::size_t lhs_rows_cnt = lhs.size();
+    const std::size_t rhs_rows_cnt = rhs.size();
+    const std::size_t rhs_cols_cnt = rhs[0].size();
+    Matrix_t<T> result_matrix =
+        createRectangleMatrix<T>(lhs_rows_cnt, rhs_cols_cnt);
+    for (std::size_t i = 0; i < lhs_rows_cnt; ++i) {
+        for (std::size_t j = 0; j < rhs_cols_cnt; ++j) {
+            result_matrix[i][j] = 0;
+            for (std::size_t k = 0; k < rhs_rows_cnt; ++k) {
+                result_matrix[i][j] += lhs[i][k] * rhs[k][j];
+            }
+        }
+    }
+    return result_matrix;
+}
+
+template <typename T>
 Matrix_t<T> transpositionRectangleMatrix(const Matrix_t<T> &matrix) {
     const std::size_t size_n = matrix.size();
     const std::size_t size_m = matrix[0].size();
