@@ -24,7 +24,7 @@ int main() {
     auto result_matrix =
         RectangleMatrix::addRectangleMatrix(matrix_1.value(), matrix_2.value());
     if (!result_matrix) {
-        std::cerr << "Matrix sizes must be equal!\n";
+        std::cerr << "Add operation: Matrix sizes must be equal!\n";
         return EXIT_FAILURE;
     }
     RectangleMatrix::printRectangleMatrix(result_matrix.value(), ostrm);
@@ -32,7 +32,28 @@ int main() {
     result_matrix =
         RectangleMatrix::subRectangleMatrix(matrix_1.value(), matrix_2.value());
     if (!result_matrix) {
-        std::cerr << "Matrix sizes must be equal!\n";
+        std::cerr << "Sub operation: Matrix sizes must be equal!\n";
+        return EXIT_FAILURE;
+    }
+    RectangleMatrix::printRectangleMatrix(result_matrix.value(), ostrm);
+
+    matrix_1 = RectangleMatrix::readRectangleMatrix<float>(istrm);
+    if (!matrix_1) {
+        std::cerr << "Wrong matrix_1 size!\n";
+        return EXIT_FAILURE;
+    }
+
+    matrix_2 = RectangleMatrix::readRectangleMatrix<float>(istrm);
+    if (!matrix_2) {
+        std::cerr << "Wrong matrix_2 size!\n";
+        return EXIT_FAILURE;
+    }
+
+    result_matrix =
+        RectangleMatrix::mulRectangleMatrix(matrix_1.value(), matrix_2.value());
+    if (!result_matrix) {
+        std::cerr
+            << "Matrix_1 cols count must be equal to matrix_2 rows count!\n";
         return EXIT_FAILURE;
     }
     RectangleMatrix::printRectangleMatrix(result_matrix.value(), ostrm);
